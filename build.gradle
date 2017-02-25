@@ -26,7 +26,10 @@ targetCompatibility = 1.8
 
 dependencies {
     compile("org.springframework.boot:spring-boot-starter-web")
+    compile("org.springframework.boot:spring-boot-starter-jdbc")
     compile("org.springframework.boot:spring-boot-devtools")
+    compile("org.postgresql:postgresql")
+    compile("org.springframework:spring-jdbc")
     testCompile('org.springframework.boot:spring-boot-starter-test')
 }
 
