@@ -1,4 +1,4 @@
-package java.com.turboocelots.oasis.service;
+package com.turboocelots.oasis.service;
 
 /**
  * Created by mlin on 2/25/17.
