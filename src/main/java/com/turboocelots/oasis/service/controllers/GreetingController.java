@@ -1,9 +1,11 @@
-package com.turboocelots.oasis.service;
+package com.turboocelots.oasis.service.controllers;
 
 /**
  * Created by mlin on 2/25/17.
  */
 import java.util.concurrent.atomic.AtomicLong;
+
+import com.turboocelots.oasis.service.models.Greeting;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;

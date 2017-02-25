@@ -3,6 +3,7 @@ package com.turboocelots.oasis.service;
 /**
  * Created by mlin on 2/25/17.
  */
+import com.turboocelots.oasis.service.models.Customer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
