@@ -3,7 +3,6 @@ package com.turboocelots.oasis.service;
 /**
  * Created by mlin on 2/25/17.
  */
-import com.turboocelots.oasis.service.models.Customer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +13,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @SpringBootApplication
 public class Application implements CommandLineRunner {
@@ -33,25 +33,30 @@ public class Application implements CommandLineRunner {
 
         log.info("Creating tables");
 
-        jdbcTemplate.execute("DROP TABLE IF EXISTS customers");
-        jdbcTemplate.execute("CREATE TABLE customers(" +
-                "id SERIAL, first_name VARCHAR(255), last_name VARCHAR(255))");
+        //TODO: eliminate table re-creation once we want data persistence
+        jdbcTemplate.execute("DROP TABLE IF EXISTS Users");
+        jdbcTemplate.execute("CREATE TABLE Users(" +
+                "UserID SERIAL, Name VARCHAR(255), Password VARCHAR(255), " +
+                "Email VARCHAR(255), Title VARCHAR(255), Address VARCHAR(255), " +
+                "PhoneNumber VARCHAR(255), CreatedAt TIMESTAMP, UpdatedAt TIMESTAMP, " +
+                "Banned BOOLEAN)");
 
-        // Split up the array of whole names into an array of first/last names
-        List<Object[]> splitUpNames = Arrays.asList("John Woo", "Jeff Dean", "Josh Bloch", "Josh Long").stream()
+        // Populate a bunch of users
+        List<Object[]> names = Arrays.asList("John pass", "Jeff pass2", "Josh pass3", "Josh pass4").stream()
                 .map(name -> name.split(" "))
                 .collect(Collectors.toList());
-
         // Use a Java 8 stream to print out each tuple of the list
-        splitUpNames.forEach(name -> log.info(String.format("Inserting customer record for %s %s", name[0], name[1])));
+        names.forEach(name -> log.info(String.format("Inserting User record for %s", name)));
 
         // Uses JdbcTemplate's batchUpdate operation to bulk load data
-        jdbcTemplate.batchUpdate("INSERT INTO customers(first_name, last_name) VALUES (?,?)", splitUpNames);
+        jdbcTemplate.batchUpdate("INSERT INTO Users(Name, Password) VALUES (?, ?)", names);
 
-        log.info("Querying for customer records where first_name = 'Josh':");
+        /*
+        log.info("Querying for Users records where name = 'Josh':");
         jdbcTemplate.query(
-                "SELECT id, first_name, last_name FROM customers WHERE first_name = ?", new Object[] { "Josh" },
+                "SELECT id, name FROM Users WHERE name = ?", new Object[] { "Josh" },
                 (rs, rowNum) -> new Customer(rs.getLong("id"), rs.getString("first_name"), rs.getString("last_name"))
         ).forEach(customer -> log.info(customer.toString()));
+        */
     }
 }
