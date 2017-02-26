@@ -17,7 +17,7 @@ public class Role {
     private String name;
     private String description;
 
-    @ManyToMany
+    @ManyToMany(mappedBy="roles", cascade = CascadeType.PERSIST)
     private Set<OasisUser> oasisUsers = new HashSet<>();
 
     protected Role() {} //Needed for jpa
@@ -41,6 +41,10 @@ public class Role {
 
     public void addOasisUsers(Collection<OasisUser> newUsers) {
         oasisUsers.addAll(newUsers);
+    }
+
+    public void removeOasisUsers(Collection<OasisUser> removedUsers) {
+        oasisUsers.removeAll(removedUsers);
     }
 
     @Override

@@ -13,6 +13,8 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 
+import java.util.ArrayList;
+
 @SpringBootApplication
 public class Application {
 
@@ -28,9 +30,9 @@ public class Application {
                                   RoleRepository roleRepository) {
         return (args) -> {
             // save a couple of users
-            repository.save(new OasisUser("Jack", "Bauer"));
-            repository.save(new OasisUser("Happy", "Birthday"));
-            repository.save(new OasisUser("Oh", "Yeah"));
+            repository.save(new OasisUser("Jack", "Bauer", new ArrayList<String>()));
+            repository.save(new OasisUser("Happy", "Birthday", new ArrayList<String>()));
+            repository.save(new OasisUser("Oh", "Yeah", new ArrayList<String>()));
 
             // Save Roles
             roleRepository.save(new Role("Administrator",

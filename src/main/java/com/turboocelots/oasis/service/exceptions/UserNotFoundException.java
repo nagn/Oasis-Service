@@ -1,4 +1,4 @@
-package com.turboocelots.oasis.service.models;
+package com.turboocelots.oasis.service.exceptions;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;

@@ -3,10 +3,7 @@ package com.turboocelots.oasis.service.models;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 /**
  * Created by mlin on 2/25/17.
@@ -18,18 +15,18 @@ public class OasisUser {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String userName;
-    @JsonIgnore
+    private ArrayList<String> permissions;
     private String password;
-
-    @ManyToMany(mappedBy="oasisUsers")
+    @ManyToMany(cascade = CascadeType.REMOVE)
     private Set<Role> roles = new HashSet<>();
 
     protected OasisUser() {}
 
     public OasisUser(String userName,
-                     String password) {
+                     String password, ArrayList<String> permissions) {
         this.userName = userName;
         this.password = password;
+        this.permissions = permissions;
     }
 
     @Override
@@ -59,8 +56,16 @@ public class OasisUser {
         return roles;
     }
 
+    public ArrayList<String> getPermissions() {
+        return permissions;
+    }
+
     public void addRoles(Collection<Role> newRoles) {
         roles.addAll(newRoles);
+    }
+
+    public void removeRoles(Collection<Role> oldRoles) {
+        roles.removeAll(oldRoles);
     }
 
 }
