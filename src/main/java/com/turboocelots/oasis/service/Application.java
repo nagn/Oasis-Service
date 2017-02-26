@@ -13,7 +13,6 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 @SpringBootApplication
 public class Application implements CommandLineRunner {
@@ -36,10 +35,10 @@ public class Application implements CommandLineRunner {
         //TODO: eliminate table re-creation once we want data persistence
         jdbcTemplate.execute("DROP TABLE IF EXISTS Users");
         jdbcTemplate.execute("CREATE TABLE Users(" +
-                "UserID SERIAL, Name VARCHAR(255), Password VARCHAR(255), " +
-                "Email VARCHAR(255), Title VARCHAR(255), Address VARCHAR(255), " +
-                "PhoneNumber VARCHAR(255), CreatedAt TIMESTAMP, UpdatedAt TIMESTAMP, " +
-                "Banned BOOLEAN)");
+                "user_id SERIAL, name VARCHAR(255), password VARCHAR(255), " +
+                "email VARCHAR(255), title VARCHAR(255), address VARCHAR(255), " +
+                "phone_number VARCHAR(255), created_at TIMESTAMP, updated_at TIMESTAMP, " +
+                "banned BOOLEAN)");
 
         // Populate a bunch of users
         List<Object[]> names = Arrays.asList("John pass", "Jeff pass2", "Josh pass3", "Josh pass4").stream()
