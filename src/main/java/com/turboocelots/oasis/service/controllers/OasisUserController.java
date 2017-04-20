@@ -43,6 +43,8 @@ public class OasisUserController {
     OasisUser updateUser (@PathVariable Long userId,  @RequestBody OasisUser input) {
         this.validateUser(userId);
         OasisUser user = this.userRepository.findById(userId).get();
+        user.setFullName(input.getFullName());
+        user.setUserType(input.getUserType());
         return user;
     }
 
