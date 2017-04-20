@@ -1,7 +1,6 @@
 package com.turboocelots.oasis.service.controllers;
 
 import com.turboocelots.oasis.service.exceptions.InvalidUserType;
-import com.turboocelots.oasis.service.exceptions.UserAlreadyExists;
 import com.turboocelots.oasis.service.exceptions.UserNameAlreadyExists;
 import com.turboocelots.oasis.service.exceptions.UserNotFoundException;
 import com.turboocelots.oasis.service.models.*;
@@ -25,7 +24,7 @@ public class OasisUserController {
 
     @RequestMapping(value= "/api/user/{userId}", method = RequestMethod.DELETE)
     String deleteUser (@PathVariable Long userId) {
-        this.validateUser(userId);
+        this.validateUserName(userId);
         OasisUser user = this.userRepository.findById(userId).get();
         // Then delete.
         this.userRepository.delete(user);
@@ -34,7 +33,7 @@ public class OasisUserController {
 
     @RequestMapping(value="/api/user/create", method = RequestMethod.POST)
     OasisUser createUser (@RequestBody OasisUser input) {
-        this.checkIfNew(input.getUserName());
+        this.checkIfNewUserName(input.getUserName());
         this.validateUserType(input.getUserType());
         OasisUser user = new OasisUser(input.getUserName(),input.getPassword(), input.getUserType());
         this.userRepository.save(user);
@@ -43,7 +42,7 @@ public class OasisUserController {
 
     @RequestMapping(value="/api/user/{userId}", method = RequestMethod.PUT)
     OasisUser updateUser (@PathVariable Long userId,  @RequestBody OasisUser input) {
-        this.validateUser(userId);
+        this.validateUserName(userId);
         OasisUser user = this.userRepository.findById(userId).get();
         user.setFullName(input.getFullName());
         user.setEmail(input.getEmail());
@@ -55,7 +54,7 @@ public class OasisUserController {
 
     @RequestMapping(value="/api/user/{userId}", method = RequestMethod.GET)
     OasisUser getUser (@PathVariable Long userId) {
-        this.validateUser(userId);
+        this.validateUserName(userId);
         OasisUser user = this.userRepository.findById(userId).get();
         return user;
     }
@@ -67,7 +66,7 @@ public class OasisUserController {
         return list;
     }
 
-    private void checkIfNew(String userName) {
+    private void checkIfNewUserName(String userName) {
         this.userRepository.findByUserName(userName).ifPresent(x -> {
             throw new UserNameAlreadyExists(userName);
         });
@@ -79,7 +78,7 @@ public class OasisUserController {
         }
     }
 
-    private void validateUser(Long userId) {
+    private void validateUserName(Long userId) {
         this.userRepository
                 .findById(userId)
                 .orElseThrow(() -> new UserNotFoundException(userId));

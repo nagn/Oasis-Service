@@ -12,5 +12,4 @@ public interface OasisUserRepository extends CrudRepository<OasisUser, Long> {
 
     Optional<OasisUser> findByUserName(String userName);
     Optional<OasisUser> findById(long id);
-
 }
