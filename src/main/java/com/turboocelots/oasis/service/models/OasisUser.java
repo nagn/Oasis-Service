@@ -15,7 +15,6 @@ public class OasisUser {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String userName;
-    private ArrayList<String> permissions;
     private String password;
     private String fullName;
 
