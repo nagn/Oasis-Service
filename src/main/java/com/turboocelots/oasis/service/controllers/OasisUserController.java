@@ -25,8 +25,6 @@ public class OasisUserController {
     String deleteUser (@PathVariable String userId) {
         this.validateUser(userId);
         OasisUser user = this.userRepository.findByUserName(userId).get();
-
-        this.userRepository.save(user);
         // Then delete.
         this.userRepository.delete(user);
         return "Success!";

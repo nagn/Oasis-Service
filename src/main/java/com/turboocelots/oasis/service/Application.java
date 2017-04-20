@@ -27,9 +27,9 @@ public class Application {
     public CommandLineRunner init(OasisUserRepository repository) {
         return (args) -> {
             // save a couple of users
-            repository.save(new OasisUser("Jack", "Bauer"));
-            repository.save(new OasisUser("Happy", "Birthday"));
-            repository.save(new OasisUser("Oh", "Yeah"));
+            repository.save(new OasisUser("Jack", "Bauer", "Administrator"));
+            repository.save(new OasisUser("Happy", "Birthday", "Worker"));
+            repository.save(new OasisUser("Oh", "Yeah", "Reporter"));
         };
     }
 
