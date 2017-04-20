@@ -39,13 +39,13 @@ public class OasisUserController {
     }
 
     @RequestMapping(value= "/api/user/login", method = RequestMethod.POST)
-    Long loginUser (@RequestBody Map<String, String> payload) {
-        if (!payload.containsKey("username") || !payload.containsKey("password")) {
+    OasisUser loginUser (@RequestBody Map<String, String> payload) {
+        if (!payload.containsKey("userName") || !payload.containsKey("password")) {
             throw new InvalidLogin();
         }
-        validateUsernameAndPassword(payload.get("username"), payload.get("password"));
-        OasisUser user = this.userRepository.findByUserName(payload.get("username")).get();
-        return user.getId();
+        validateUsernameAndPassword(payload.get("userName"), payload.get("password"));
+        OasisUser user = this.userRepository.findByUserName(payload.get("userName")).get();
+        return user;
     }
 
     @RequestMapping(value="/api/user/{userId}", method = RequestMethod.PUT)
@@ -75,6 +75,7 @@ public class OasisUserController {
     }
 
     private void checkIfNewUserName(String userName) {
+        if (userName == null) throw new InvalidUserName();
         this.userRepository.findByUserName(userName).ifPresent(x -> {
             throw new UserNameAlreadyExists(userName);
         });

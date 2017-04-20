@@ -36,3 +36,6 @@ dependencies {
 
 task stage(dependsOn: ['build', 'clean'])
 build.mustRunAfter clean
+bootRun {
+    addResources = true
+}
