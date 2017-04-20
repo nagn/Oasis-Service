@@ -1,6 +1,9 @@
 package com.turboocelots.oasis.service.models;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIdentityReference;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
@@ -22,7 +25,6 @@ public class WaterQualityReport {
     private Double virusPPM;
     private Double contaminantsPPM;
 
-    @ManyToOne
     @JsonBackReference
     @JoinColumn(name = "oasis_user_id")
     private OasisUser user;

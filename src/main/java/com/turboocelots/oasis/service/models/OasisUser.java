@@ -1,6 +1,7 @@
 package com.turboocelots.oasis.service.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonValue;
 
 import javax.persistence.*;
 import java.util.*;

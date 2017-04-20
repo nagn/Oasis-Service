@@ -36,7 +36,6 @@ public class Application {
 
             qualityReportsRepository.save(new WaterQualityReport(
                     Timestamp.from(Instant.now()),
-                    "Jack",
                     0.1,
                     0.2,
                     "condition",
