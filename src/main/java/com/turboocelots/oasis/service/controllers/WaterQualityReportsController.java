@@ -8,6 +8,7 @@ import com.turboocelots.oasis.service.models.WaterQualityReportsRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -37,8 +38,15 @@ public class WaterQualityReportsController {
 
     @RequestMapping(value="/api/qualityreports/create", method = RequestMethod.POST)
     WaterQualityReport createReport(@RequestBody WaterQualityReport input) {
-        WaterQualityReport newReport = new WaterQualityReport(input.getTimestamp(), input.getReporterName());
-        this.reportsRepository.save(newReport);
+        WaterQualityReport newReport = new WaterQualityReport(
+                input.getTimestamp(),
+                input.getReporterName(),
+                input.getLongitude(),
+                input.getLatitude(),
+                input.getOverallCondition(),
+                input.getVirusPPM(),
+                input.getContaminantsPPM());
+            this.reportsRepository.save(newReport);
         return newReport;
     }
 
