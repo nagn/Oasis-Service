@@ -13,8 +13,6 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 
-import java.util.ArrayList;
-
 @SpringBootApplication
 public class Application {
 
@@ -26,25 +24,12 @@ public class Application {
 
 
     @Bean
-    public CommandLineRunner init(OasisUserRepository repository,
-                                  RoleRepository roleRepository) {
+    public CommandLineRunner init(OasisUserRepository repository) {
         return (args) -> {
             // save a couple of users
-            repository.save(new OasisUser("Jack", "Bauer", new ArrayList<String>()));
-            repository.save(new OasisUser("Happy", "Birthday", new ArrayList<String>()));
-            repository.save(new OasisUser("Oh", "Yeah", new ArrayList<String>()));
-
-            // Save Roles
-            roleRepository.save(new Role("Administrator",
-                    "Special account for maintenance. Can delete accounts, " +
-                    "ban a user from submitting reports, and unblock a locked accounts. 4" +
-                    "Can also view the Security log."));
-            roleRepository.save(new Role("Reporter", "Basic account. Can submit a report on water " +
-                    "availability and view available water sources."));
-            roleRepository.save(new Role("Worker", "Can report on water purity levels."));
-            roleRepository.save(new Role("Manager", "Can view historical reports and trends of " +
-                    "water purity. Can also delete inaccurate individual reports."));
-
+            repository.save(new OasisUser("Jack", "Bauer"));
+            repository.save(new OasisUser("Happy", "Birthday"));
+            repository.save(new OasisUser("Oh", "Yeah"));
         };
     }
 

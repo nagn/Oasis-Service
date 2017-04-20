@@ -17,16 +17,15 @@ public class OasisUser {
     private String userName;
     private ArrayList<String> permissions;
     private String password;
-    @ManyToMany(cascade = CascadeType.REMOVE)
-    private Set<Role> roles = new HashSet<>();
+
+    private String role;
 
     protected OasisUser() {}
 
     public OasisUser(String userName,
-                     String password, ArrayList<String> permissions) {
+                     String password) {
         this.userName = userName;
         this.password = password;
-        this.permissions = permissions;
     }
 
     @Override
@@ -50,22 +49,6 @@ public class OasisUser {
 
     public String getPassword() {
         return password;
-    }
-
-    public Set<Role> getRoles() {
-        return roles;
-    }
-
-    public ArrayList<String> getPermissions() {
-        return permissions;
-    }
-
-    public void addRoles(Collection<Role> newRoles) {
-        roles.addAll(newRoles);
-    }
-
-    public void removeRoles(Collection<Role> oldRoles) {
-        roles.removeAll(oldRoles);
     }
 
 }
