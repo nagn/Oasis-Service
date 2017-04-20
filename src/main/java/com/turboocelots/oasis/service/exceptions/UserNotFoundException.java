@@ -12,7 +12,7 @@ public class UserNotFoundException extends RuntimeException{
         super("Could not find user " + userId);
     }
     public UserNotFoundException(String userName) {
-        super("Could not find user name" + userName);
+        super("Could not find user name " + userName);
     }
 
 }

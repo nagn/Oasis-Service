@@ -11,4 +11,7 @@ public class InvalidUserType extends RuntimeException {
     public InvalidUserType(String userType) {
         super("UserType is invalid: " + userType);
     }
+    public InvalidUserType() {
+        super("No userType specified");
+    }
 }

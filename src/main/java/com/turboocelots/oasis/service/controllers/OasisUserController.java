@@ -90,6 +90,7 @@ public class OasisUserController {
     }
 
     private void validateUserType(String userType) {
+        if (userType == null) throw new InvalidUserType();
         if (!userType.equals("Administrator") && !userType.equals("Worker") && !userType.equals("Reporter") && !userType.equals("Manager")) {
             throw new InvalidUserType(userType);
         }
