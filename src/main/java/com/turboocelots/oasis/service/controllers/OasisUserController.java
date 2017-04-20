@@ -44,10 +44,12 @@ public class OasisUserController {
     @RequestMapping(value="/api/user/{userId}", method = RequestMethod.PUT)
     OasisUser updateUser (@PathVariable Long userId,  @RequestBody OasisUser input) {
         this.validateUser(userId);
-        this.validateUserType(input.getUserType());
         OasisUser user = this.userRepository.findById(userId).get();
         user.setFullName(input.getFullName());
-        user.setUserType(input.getUserType());
+        user.setEmail(input.getEmail());
+        user.setHomeAddress(input.getHomeAddress());
+        user.setTitle(input.getTitle());
+        user.setPhoneNumber(input.getPhoneNumber());
         return user;
     }
 
@@ -72,7 +74,7 @@ public class OasisUserController {
     }
 
     private void validateUserType(String userType) {
-        if !(userType.equals("Administrator") || userType.equals("Worker") || userType.equals("Reporter") || userType.equals("Manager")) {
+        if (!userType.equals("Administrator") && !userType.equals("Worker") && !userType.equals("Reporter") && !userType.equals("Manager")) {
             throw new InvalidUserType(userType);
         }
     }

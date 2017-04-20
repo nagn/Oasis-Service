@@ -18,6 +18,10 @@ public class OasisUser {
     private String password;
     private String fullName;
     private String userType;
+    private String email;
+    private String homeAddress;
+    private String title;
+    private String phoneNumber;
 
     protected OasisUser() {}
 
@@ -60,7 +64,39 @@ public class OasisUser {
         return userType;
     }
 
+    public String getEmail() {
+        return email;
+    }
+
     public void setUserType(String userType) {
         this.userType = userType;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public void setHomeAddress(String homeAddress) {
+        this.homeAddress = homeAddress;
+    }
+
+    public String getHomeAddress() {
+        return homeAddress;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
     }
 }
