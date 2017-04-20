@@ -1,5 +1,6 @@
 package com.turboocelots.oasis.service.controllers;
 
+import com.turboocelots.oasis.service.exceptions.InvalidUserType;
 import com.turboocelots.oasis.service.exceptions.UserAlreadyExists;
 import com.turboocelots.oasis.service.exceptions.UserNameAlreadyExists;
 import com.turboocelots.oasis.service.exceptions.UserNotFoundException;
@@ -34,6 +35,7 @@ public class OasisUserController {
     @RequestMapping(value="/api/user/create", method = RequestMethod.POST)
     OasisUser createUser (@RequestBody OasisUser input) {
         this.checkIfNew(input.getUserName());
+        this.validateUserType(input.getUserType());
         OasisUser user = new OasisUser(input.getUserName(),input.getPassword(), input.getUserType());
         this.userRepository.save(user);
         return user;
@@ -42,6 +44,7 @@ public class OasisUserController {
     @RequestMapping(value="/api/user/{userId}", method = RequestMethod.PUT)
     OasisUser updateUser (@PathVariable Long userId,  @RequestBody OasisUser input) {
         this.validateUser(userId);
+        this.validateUserType(input.getUserType());
         OasisUser user = this.userRepository.findById(userId).get();
         user.setFullName(input.getFullName());
         user.setUserType(input.getUserType());
@@ -66,6 +69,12 @@ public class OasisUserController {
         this.userRepository.findByUserName(userName).ifPresent(x -> {
             throw new UserNameAlreadyExists(userName);
         });
+    }
+
+    private void validateUserType(String userType) {
+        if !(userType.equals("Administrator") || userType.equals("Worker") || userType.equals("Reporter") || userType.equals("Manager")) {
+            throw new InvalidUserType(userType);
+        }
     }
 
     private void validateUser(Long userId) {
