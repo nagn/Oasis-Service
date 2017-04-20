@@ -13,6 +13,9 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 
+import java.sql.Timestamp;
+import java.time.Instant;
+
 @SpringBootApplication
 public class Application {
 
@@ -24,12 +27,21 @@ public class Application {
 
 
     @Bean
-    public CommandLineRunner init(OasisUserRepository repository) {
+    public CommandLineRunner init(OasisUserRepository userRepository, WaterQualityReportsRepository qualityReportsRepository) {
         return (args) -> {
             // save a couple of users
-            repository.save(new OasisUser("Jack", "Bauer", "Administrator"));
-            repository.save(new OasisUser("Happy", "Birthday", "Worker"));
-            repository.save(new OasisUser("Oh", "Yeah", "Reporter"));
+            userRepository.save(new OasisUser("Jack", "Bauer", "Administrator"));
+            userRepository.save(new OasisUser("Happy", "Birthday", "Worker"));
+            userRepository.save(new OasisUser("Oh", "Yeah", "Reporter"));
+
+            qualityReportsRepository.save(new WaterQualityReport(
+                    Timestamp.from(Instant.now()),
+                    "Jack",
+                    0.1,
+                    0.2,
+                    "condition",
+                    0.1,
+                    0.2));
         };
     }
 

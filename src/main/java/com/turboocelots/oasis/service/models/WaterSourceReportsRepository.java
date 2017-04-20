@@ -7,6 +7,6 @@ import java.util.Optional;
 /**
  * Created by mlin on 4/20/17.
  */
-public interface WaterQualityReportsRepository extends CrudRepository<WaterQualityReport, Long> {
-    Optional<WaterQualityReport> findById(Long id);
+public interface WaterSourceReportsRepository extends CrudRepository<WaterSourceReport, Long> {
+    Optional<WaterSourceReport> findById(Long id);
 }
