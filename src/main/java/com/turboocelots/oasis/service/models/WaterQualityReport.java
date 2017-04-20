@@ -22,9 +22,9 @@ public class WaterQualityReport {
     }
 
     @ManyToOne
-    @JoinColumn(name = "oasis_user_name")
-    public String getOasisUserName() {
-        return user.getUserName();
+    @JoinColumn(name = "oasis_user_id")
+    public OasisUser getUser() {
+        return user;
     }
 
 }
