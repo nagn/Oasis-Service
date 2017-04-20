@@ -59,7 +59,6 @@ public class WaterQualityReportsController {
         this.validateReportID(reportID);
         WaterQualityReport report = this.reportsRepository.findById(reportID).get();
         report.setTimestamp(input.getTimestamp());
-        report.setReporterName(input.getReporterName());
         report.setLongitude(input.getLongitude());
         report.setLatitude(input.getLatitude());
         report.setOverallCondition(input.getOverallCondition());
