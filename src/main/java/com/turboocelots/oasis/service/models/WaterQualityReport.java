@@ -13,8 +13,6 @@ public class WaterQualityReport {
     private Long id;
     private Timestamp timestamp;
 
-    private String reporterName;
-
     private Double longitude;
     private Double latitude;
 
@@ -28,12 +26,11 @@ public class WaterQualityReport {
 
     protected WaterQualityReport() {}
 
-    public WaterQualityReport(Timestamp timestamp, String reporterName,
+    public WaterQualityReport(Timestamp timestamp,
                               Double longitude, Double latitude,
                               String overallCondition,
                               Double virusPPM, Double contaminantsPPM) {
         this.timestamp = timestamp;
-        this.reporterName = reporterName;
         this.longitude = longitude;
         this.latitude = latitude;
 
@@ -42,13 +39,8 @@ public class WaterQualityReport {
         this.contaminantsPPM = contaminantsPPM;
     }
 
-
     public Timestamp getTimestamp() {
         return timestamp;
-    }
-
-    public String getReporterName() {
-        return reporterName;
     }
 
     public Double getLongitude() {
@@ -75,9 +67,6 @@ public class WaterQualityReport {
         this.timestamp = timestamp;
     }
 
-    public void setReporterName(String reporterName) {
-        this.reporterName = reporterName;
-    }
 
     public void setLongitude(Double longitude) {
         this.longitude = longitude;
@@ -105,5 +94,13 @@ public class WaterQualityReport {
 
     public void setUser(OasisUser user) {
         this.user = user;
+    }
+
+    public String getUserName() {
+        if (this.user == null) {
+            return "";
+        } else {
+            return this.user.getUserName();
+        }
     }
 }

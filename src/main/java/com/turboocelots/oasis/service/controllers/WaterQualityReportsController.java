@@ -44,7 +44,6 @@ public class WaterQualityReportsController {
         OasisUser user = this.userRepository.findById(input.getUser().getId()).get();
         WaterQualityReport newReport = new WaterQualityReport(
                 input.getTimestamp(),
-                input.getReporterName(),
                 input.getLongitude(),
                 input.getLatitude(),
                 input.getOverallCondition(),
