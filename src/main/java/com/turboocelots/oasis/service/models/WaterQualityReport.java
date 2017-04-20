@@ -28,6 +28,10 @@ public class WaterQualityReport {
         return user;
     }
 
+    public Long getUserID() {
+        return user.getId();
+    }
+
     public Timestamp getTimestamp() {
         return timestamp;
     }

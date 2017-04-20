@@ -36,8 +36,9 @@ public class WaterQualityReportsController {
     }
 
     @RequestMapping(value="/api/qualityreports/create", method = RequestMethod.POST)
-    WaterQualityReport createReport(@PathVariable Long userID, @RequestBody WaterQualityReport input) {
-        this.validateUserID(userID);
+    WaterQualityReport createReport(@RequestBody WaterQualityReport input) {
+        this.validateUserID(input.getUserID());
+        Long userID = input.getUserID();
         OasisUser user = this.userRepository.findById(userID).get();
         WaterQualityReport newReport = new WaterQualityReport(input.getTimestamp(), user);
         this.reportsRepository.save(newReport);
