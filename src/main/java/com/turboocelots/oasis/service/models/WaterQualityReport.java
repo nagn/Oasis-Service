@@ -13,26 +13,21 @@ public class WaterQualityReport {
     private Long id;
     private Timestamp timestamp;
 
-    @ManyToOne
-    @JoinColumn(name = "oasis_id")
-    private OasisUser user;
+    private String reporterName;
 
     protected WaterQualityReport() {}
 
-    public WaterQualityReport(Timestamp timestamp, OasisUser user) {
+    public WaterQualityReport(Timestamp timestamp, String reporterName) {
         this.timestamp = timestamp;
-        this.user = user;
+        this.reporterName = reporterName;
     }
 
-    public OasisUser getUser() {
-        return user;
-    }
-
-    public Long getUserID() {
-        return user.getId();
-    }
 
     public Timestamp getTimestamp() {
         return timestamp;
+    }
+
+    public String getReporterName() {
+        return reporterName;
     }
 }
