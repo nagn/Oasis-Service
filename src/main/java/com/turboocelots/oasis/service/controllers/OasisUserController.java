@@ -1,8 +1,6 @@
 package com.turboocelots.oasis.service.controllers;
 
-import com.turboocelots.oasis.service.exceptions.InvalidUserType;
-import com.turboocelots.oasis.service.exceptions.UserNameAlreadyExists;
-import com.turboocelots.oasis.service.exceptions.UserNotFoundException;
+import com.turboocelots.oasis.service.exceptions.*;
 import com.turboocelots.oasis.service.models.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -40,6 +38,16 @@ public class OasisUserController {
         return user;
     }
 
+    @RequestMapping(value= "/api/user/login", method = RequestMethod.POST)
+    Long loginUser (@RequestBody Map<String, String> payload) {
+        if (!payload.containsKey("username") || !payload.containsKey("password")) {
+            throw new InvalidLogin();
+        }
+        validateUsernameAndPassword(payload.get("username"), payload.get("password"));
+        OasisUser user = this.userRepository.findByUserName(payload.get("username")).get();
+        return user.getId();
+    }
+
     @RequestMapping(value="/api/user/{userId}", method = RequestMethod.PUT)
     OasisUser updateUser (@PathVariable Long userId,  @RequestBody OasisUser input) {
         this.validateUserID(userId);
@@ -70,6 +78,15 @@ public class OasisUserController {
         this.userRepository.findByUserName(userName).ifPresent(x -> {
             throw new UserNameAlreadyExists(userName);
         });
+    }
+
+    private void validateUsernameAndPassword(String userName, String password) {
+        OasisUser user = this.userRepository
+                .findByUserName(userName)
+                .orElseThrow(() -> new UserNotFoundException(userName));
+        if (!user.getPassword().equals(password)) {
+            throw new InvalidPassword(password);
+        }
     }
 
     private void validateUserType(String userType) {

@@ -1,5 +1,6 @@
 package com.turboocelots.oasis.service.controllers;
 
+import com.turboocelots.oasis.service.exceptions.InvalidUserType;
 import com.turboocelots.oasis.service.exceptions.UserNotFoundException;
 import com.turboocelots.oasis.service.exceptions.WaterQualityReportNotFoundException;
 import com.turboocelots.oasis.service.models.OasisUserRepository;
@@ -38,6 +39,7 @@ public class WaterQualityReportsController {
 
     @RequestMapping(value="/api/qualityreports/create", method = RequestMethod.POST)
     WaterQualityReport createReport(@RequestBody WaterQualityReport input) {
+        this.validateOverallCondition(input.getOverallCondition());
         WaterQualityReport newReport = new WaterQualityReport(
                 input.getTimestamp(),
                 input.getReporterName(),
@@ -53,6 +55,7 @@ public class WaterQualityReportsController {
     @RequestMapping(value="/api/qualityreports/{reportID}", method = RequestMethod.PUT)
     WaterQualityReport updateReport(@PathVariable Long reportID, @RequestBody WaterQualityReport input) {
         this.validateReportID(reportID);
+        this.validateOverallCondition(input.getOverallCondition());
         WaterQualityReport report = this.reportsRepository.findById(reportID).get();
         report.setLongitude(input.getLongitude());
         report.setLatitude(input.getLatitude());
@@ -72,6 +75,11 @@ public class WaterQualityReportsController {
         this.reportsRepository
                 .findById(userId)
                 .orElseThrow(() -> new WaterQualityReportNotFoundException(userId));
+    }
+    private void validateOverallCondition(String overallCondition) {
+        if (!overallCondition.equals("Safe") && !overallCondition.equals("Treatable") && !overallCondition.equals("Unsafe")) {
+            throw new InvalidUserType(overallCondition);
+        }
     }
 
 }
