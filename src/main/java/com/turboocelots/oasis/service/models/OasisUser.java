@@ -17,8 +17,6 @@ public class OasisUser {
     private String userName;
     private String password;
     private String fullName;
-
-
     private String userType;
 
     protected OasisUser() {}
