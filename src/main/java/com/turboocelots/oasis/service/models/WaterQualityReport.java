@@ -25,17 +25,16 @@ public class WaterQualityReport {
     private Double virusPPM;
     private Double contaminantsPPM;
 
-    @JsonBackReference
-    @JoinColumn(name = "oasis_user_id")
-    private OasisUser user;
+    private String reporterName;
 
     protected WaterQualityReport() {}
 
-    public WaterQualityReport(Timestamp timestamp,
+    public WaterQualityReport(Timestamp timestamp, String reporterName,
                               Double longitude, Double latitude,
                               String overallCondition,
                               Double virusPPM, Double contaminantsPPM) {
         this.timestamp = timestamp;
+        this.reporterName = reporterName;
         this.longitude = longitude;
         this.latitude = latitude;
 
@@ -93,19 +92,11 @@ public class WaterQualityReport {
         this.contaminantsPPM = contaminantsPPM;
     }
 
-    public OasisUser getUser() {
-        return this.user;
+    public String getReporterName() {
+        return reporterName;
     }
 
-    public void setUser(OasisUser user) {
-        this.user = user;
-    }
-
-    public String getUserName() {
-        if (this.user == null) {
-            return "";
-        } else {
-            return this.user.getUserName();
-        }
+    public void setReporterName(String reporterName) {
+        this.reporterName = reporterName;
     }
 }
