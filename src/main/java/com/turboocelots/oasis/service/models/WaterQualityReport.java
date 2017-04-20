@@ -22,6 +22,10 @@ public class WaterQualityReport {
     private Double virusPPM;
     private Double contaminantsPPM;
 
+    @ManyToOne
+    @JoinColumn(name = "oasis_user_id")
+    private OasisUser user;
+
     protected WaterQualityReport() {}
 
     public WaterQualityReport(Timestamp timestamp, String reporterName,
@@ -65,5 +69,41 @@ public class WaterQualityReport {
 
     public Double getContaminantsPPM() {
         return contaminantsPPM;
+    }
+
+    public void setTimestamp(Timestamp timestamp) {
+        this.timestamp = timestamp;
+    }
+
+    public void setReporterName(String reporterName) {
+        this.reporterName = reporterName;
+    }
+
+    public void setLongitude(Double longitude) {
+        this.longitude = longitude;
+    }
+
+    public void setLatitude(Double latitude) {
+        this.latitude = latitude;
+    }
+
+    public void setOverallCondition(String overallCondition) {
+        this.overallCondition = overallCondition;
+    }
+
+    public void setVirusPPM(Double virusPPM) {
+        this.virusPPM = virusPPM;
+    }
+
+    public void setContaminantsPPM(Double contaminantsPPM) {
+        this.contaminantsPPM = contaminantsPPM;
+    }
+
+    public OasisUser getUser() {
+        return this.user;
+    }
+
+    public void setUser(OasisUser user) {
+        this.user = user;
     }
 }

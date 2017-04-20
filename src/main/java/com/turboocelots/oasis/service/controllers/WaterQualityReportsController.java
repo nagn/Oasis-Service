@@ -1,6 +1,7 @@
 package com.turboocelots.oasis.service.controllers;
 
 import com.turboocelots.oasis.service.exceptions.UserNotFoundException;
+import com.turboocelots.oasis.service.exceptions.WaterQualityReportNotFoundException;
 import com.turboocelots.oasis.service.models.OasisUser;
 import com.turboocelots.oasis.service.models.OasisUserRepository;
 import com.turboocelots.oasis.service.models.WaterQualityReport;
@@ -8,6 +9,7 @@ import com.turboocelots.oasis.service.models.WaterQualityReportsRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.websocket.server.PathParam;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -36,8 +38,10 @@ public class WaterQualityReportsController {
         return list;
     }
 
-    @RequestMapping(value="/api/qualityreports/create", method = RequestMethod.POST)
-    WaterQualityReport createReport(@RequestBody WaterQualityReport input) {
+    @RequestMapping(value="/api/qualityreports/create/{userId}", method = RequestMethod.POST)
+    WaterQualityReport createReport(@PathVariable Long userId, @RequestBody WaterQualityReport input) {
+        this.validateUserID(userId);
+        OasisUser user = this.userRepository.findById(userId).get();
         WaterQualityReport newReport = new WaterQualityReport(
                 input.getTimestamp(),
                 input.getReporterName(),
@@ -46,14 +50,36 @@ public class WaterQualityReportsController {
                 input.getOverallCondition(),
                 input.getVirusPPM(),
                 input.getContaminantsPPM());
-            this.reportsRepository.save(newReport);
+        newReport.setUser(user);
+        this.reportsRepository.save(newReport);
+        
         return newReport;
+    }
+
+    @RequestMapping(value="/api/qualityreports/{reportID}", method = RequestMethod.PUT)
+    WaterQualityReport updateReport(@PathVariable Long reportID, @RequestBody WaterQualityReport input) {
+        this.validateReportID(reportID);
+        WaterQualityReport report = this.reportsRepository.findById(reportID).get();
+        report.setTimestamp(input.getTimestamp());
+        report.setReporterName(input.getReporterName());
+        report.setLongitude(input.getLongitude());
+        report.setLatitude(input.getLatitude());
+        report.setOverallCondition(input.getOverallCondition());
+        report.setVirusPPM(input.getVirusPPM());
+        report.setContaminantsPPM(input.getContaminantsPPM());
+        this.reportsRepository.save(report);
+        return report;
     }
 
     private void validateUserID(Long userId) {
         this.userRepository
                 .findById(userId)
                 .orElseThrow(() -> new UserNotFoundException(userId));
+    }
+    private void validateReportID(Long userId) {
+        this.reportsRepository
+                .findById(userId)
+                .orElseThrow(() -> new WaterQualityReportNotFoundException(userId));
     }
 
 }
