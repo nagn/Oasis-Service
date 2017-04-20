@@ -1,6 +1,7 @@
 package com.turboocelots.oasis.service.controllers;
 
 import com.turboocelots.oasis.service.exceptions.UserAlreadyExists;
+import com.turboocelots.oasis.service.exceptions.UserNameAlreadyExists;
 import com.turboocelots.oasis.service.exceptions.UserNotFoundException;
 import com.turboocelots.oasis.service.models.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,9 +23,9 @@ public class OasisUserController {
     }
 
     @RequestMapping(value= "/api/user/{userId}", method = RequestMethod.DELETE)
-    String deleteUser (@PathVariable String userId) {
+    String deleteUser (@PathVariable Long userId) {
         this.validateUser(userId);
-        OasisUser user = this.userRepository.findByUserName(userId).get();
+        OasisUser user = this.userRepository.findById(userId).get();
         // Then delete.
         this.userRepository.delete(user);
         return "Success!";
@@ -39,16 +40,16 @@ public class OasisUserController {
     }
 
     @RequestMapping(value="/api/user/{userId}", method = RequestMethod.PUT)
-    OasisUser updateUser (@PathVariable String userId,  @RequestBody OasisUser input) {
+    OasisUser updateUser (@PathVariable Long userId,  @RequestBody OasisUser input) {
         this.validateUser(userId);
-        OasisUser user = this.userRepository.findByUserName(userId).get();
+        OasisUser user = this.userRepository.findById(userId).get();
         return user;
     }
 
     @RequestMapping(value="/api/user/{userId}", method = RequestMethod.GET)
-    OasisUser getUser (@PathVariable String userId) {
+    OasisUser getUser (@PathVariable Long userId) {
         this.validateUser(userId);
-        OasisUser user = this.userRepository.findByUserName(userId).get();
+        OasisUser user = this.userRepository.findById(userId).get();
         return user;
     }
 
@@ -59,15 +60,15 @@ public class OasisUserController {
         return list;
     }
 
-    private void checkIfNew(String userId) {
-        this.userRepository.findByUserName(userId).ifPresent(x -> {
-            throw new UserAlreadyExists(userId);
+    private void checkIfNew(String userName) {
+        this.userRepository.findByUserName(userName).ifPresent(x -> {
+            throw new UserNameAlreadyExists(userName);
         });
     }
 
-    private void validateUser(String userId) {
+    private void validateUser(Long userId) {
         this.userRepository
-                .findByUserName(userId)
+                .findById(userId)
                 .orElseThrow(() -> new UserNotFoundException(userId));
     }
 }
