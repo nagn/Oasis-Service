@@ -35,7 +35,7 @@ public class OasisUserController {
     @RequestMapping(value="/api/user/create", method = RequestMethod.POST)
     OasisUser createUser (@RequestBody OasisUser input) {
         this.checkIfNew(input.getUserName());
-        OasisUser user = new OasisUser(input.getUserName(),input.getPassword());
+        OasisUser user = new OasisUser(input.getUserName(),input.getPassword(), input.getUserType());
         this.userRepository.save(user);
         return user;
     }

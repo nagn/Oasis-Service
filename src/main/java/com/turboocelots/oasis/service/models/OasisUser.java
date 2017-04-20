@@ -17,22 +17,26 @@ public class OasisUser {
     private String userName;
     private ArrayList<String> permissions;
     private String password;
+    private String fullName;
 
-    private String role;
+
+    private String userType;
 
     protected OasisUser() {}
 
     public OasisUser(String userName,
-                     String password) {
+                     String password,
+                     String userType) {
         this.userName = userName;
         this.password = password;
+        this.userType = userType;
     }
 
     @Override
     public String toString() {
         return String.format(
-                "OasisUser[id=%d, userName='%s', password='%s']",
-                id, userName, password);
+                "OasisUser[id=%d, userName='%s', password='%s', userType='%s]",
+                id, userName, password, userType);
     }
 
     public Long getId() {
@@ -43,6 +47,10 @@ public class OasisUser {
         return userName;
     }
 
+    public String getFullName() {return fullName;}
+
+    public void setFullName(String name) {this.fullName = name;}
+
     public void setUserName(String name) {
         this.userName = name;
     }
@@ -51,4 +59,7 @@ public class OasisUser {
         return password;
     }
 
+    public String getUserType() {
+        return userType;
+    }
 }
