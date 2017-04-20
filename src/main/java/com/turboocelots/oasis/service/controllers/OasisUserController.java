@@ -24,7 +24,7 @@ public class OasisUserController {
 
     @RequestMapping(value= "/api/user/{userId}", method = RequestMethod.DELETE)
     String deleteUser (@PathVariable Long userId) {
-        this.validateUserName(userId);
+        this.validateUserID(userId);
         OasisUser user = this.userRepository.findById(userId).get();
         // Then delete.
         this.userRepository.delete(user);
@@ -42,7 +42,7 @@ public class OasisUserController {
 
     @RequestMapping(value="/api/user/{userId}", method = RequestMethod.PUT)
     OasisUser updateUser (@PathVariable Long userId,  @RequestBody OasisUser input) {
-        this.validateUserName(userId);
+        this.validateUserID(userId);
         OasisUser user = this.userRepository.findById(userId).get();
         user.setFullName(input.getFullName());
         user.setEmail(input.getEmail());
@@ -54,7 +54,7 @@ public class OasisUserController {
 
     @RequestMapping(value="/api/user/{userId}", method = RequestMethod.GET)
     OasisUser getUser (@PathVariable Long userId) {
-        this.validateUserName(userId);
+        this.validateUserID(userId);
         OasisUser user = this.userRepository.findById(userId).get();
         return user;
     }
@@ -78,7 +78,7 @@ public class OasisUserController {
         }
     }
 
-    private void validateUserName(Long userId) {
+    private void validateUserID(Long userId) {
         this.userRepository
                 .findById(userId)
                 .orElseThrow(() -> new UserNotFoundException(userId));

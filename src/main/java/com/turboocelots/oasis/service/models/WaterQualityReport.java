@@ -19,12 +19,16 @@ public class WaterQualityReport {
 
     protected WaterQualityReport() {}
 
-    public WaterQualityReport(Timestamp timestamp) {
+    public WaterQualityReport(Timestamp timestamp, OasisUser user) {
         this.timestamp = timestamp;
+        this.user = user;
     }
 
     public OasisUser getUser() {
         return user;
     }
 
+    public Timestamp getTimestamp() {
+        return timestamp;
+    }
 }
