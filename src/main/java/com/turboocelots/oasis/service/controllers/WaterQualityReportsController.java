@@ -38,10 +38,10 @@ public class WaterQualityReportsController {
         return list;
     }
 
-    @RequestMapping(value="/api/qualityreports/create/{userId}", method = RequestMethod.POST)
-    WaterQualityReport createReport(@PathVariable Long userId, @RequestBody WaterQualityReport input) {
-        this.validateUserID(userId);
-        OasisUser user = this.userRepository.findById(userId).get();
+    @RequestMapping(value="/api/qualityreports/create", method = RequestMethod.POST)
+    WaterQualityReport createReport(@RequestBody WaterQualityReport input) {
+        this.validateUserID(input.getUser().getId());
+        OasisUser user = this.userRepository.findById(input.getUser().getId()).get();
         WaterQualityReport newReport = new WaterQualityReport(
                 input.getTimestamp(),
                 input.getReporterName(),
@@ -52,7 +52,6 @@ public class WaterQualityReportsController {
                 input.getContaminantsPPM());
         newReport.setUser(user);
         this.reportsRepository.save(newReport);
-        
         return newReport;
     }
 
