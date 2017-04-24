@@ -9,6 +9,6 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 @ResponseStatus(HttpStatus.BAD_REQUEST)
 public class UserAlreadyExists extends RuntimeException {
     public UserAlreadyExists(Long userId) {
-        super("UserId already exists " + userId);
+        super("UserId already exists: " + userId);
     }
 }

@@ -57,6 +57,7 @@ public class OasisUserController {
         user.setHomeAddress(input.getHomeAddress());
         user.setTitle(input.getTitle());
         user.setPhoneNumber(input.getPhoneNumber());
+        this.userRepository.save(user);
         return user;
     }
 
