@@ -24,7 +24,9 @@ public class WaterSourceReport {
 
     private String waterCondition;
     private String waterType;
-    
+
+    protected WaterSourceReport() {}
+
     public WaterSourceReport(Timestamp timestamp, String reporterName, Double longitude, Double latitude, String waterCondition, String waterType) {
         this.timestamp = timestamp;
         this.reporterName = reporterName;

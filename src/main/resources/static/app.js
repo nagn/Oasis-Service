@@ -1,7 +1,7 @@
 var oasisApp = angular.module('oasisApp', ['ui.router', 'ui.bootstrap']);
 oasisApp.config(function($stateProvider, $urlRouterProvider) {
     $urlRouterProvider.when('', '/welcome');
-    $urlRouterProvider.otherwise('/login')
+    $urlRouterProvider.otherwise('/welcome');
 
     $stateProvider
         .state('home', {
@@ -28,6 +28,11 @@ oasisApp.config(function($stateProvider, $urlRouterProvider) {
             url: '/edit-profile',
             templateUrl: 'views/edit-profile-view.html',
             controller: 'editProfileController'
+        })
+       .state('map', {
+            url: '/map',
+            templateUrl: 'views/map-view.html',
+            controller: 'mapController'
         });
 
 });

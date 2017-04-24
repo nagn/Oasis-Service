@@ -27,7 +27,7 @@ public class Application {
 
 
     @Bean
-    public CommandLineRunner init(OasisUserRepository userRepository, WaterQualityReportsRepository qualityReportsRepository) {
+    public CommandLineRunner init(OasisUserRepository userRepository, WaterQualityReportsRepository qualityReportsRepository, WaterSourceReportsRepository sourceRepository) {
         return (args) -> {
             // save a couple of users
             userRepository.save(new OasisUser("Jack", "Bauer", "Administrator"));
@@ -42,6 +42,21 @@ public class Application {
                     "condition",
                     0.1,
                     0.2));
+
+            sourceRepository.save(new WaterSourceReport(
+                    Timestamp.from(Instant.now()),
+                    "Dorthy",
+                    -84.387982,
+                    33.748995,
+                    "Good",
+                    "Spring"));
+            sourceRepository.save(new WaterSourceReport(
+                    Timestamp.from(Instant.now()),
+                    "Dorthy",
+                    -84.4349526,
+                    33.7818455,
+                    "Bad",
+                    "Tap"));
         };
     }
 

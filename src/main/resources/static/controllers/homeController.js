@@ -12,4 +12,7 @@ oasisApp.controller('homeController', ['$scope', '$state',  'loginService', func
         loginService.logout();
         $state.transitionTo('welcome');
     }
+    $scope.viewWaterSources = function () {
+        $state.transitionTo('map');
+    }
 }]);
