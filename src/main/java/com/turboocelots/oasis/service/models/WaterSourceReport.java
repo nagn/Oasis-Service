@@ -36,6 +36,8 @@ public class WaterSourceReport {
         this.waterType =waterType;
     }
 
+    public Long getId() {return id;}
+
     public Timestamp getTimestamp() {
         return timestamp;
     }

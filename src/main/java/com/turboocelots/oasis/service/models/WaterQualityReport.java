@@ -43,6 +43,8 @@ public class WaterQualityReport {
         this.contaminantsPPM = contaminantsPPM;
     }
 
+    public Long getId() {return id;}
+
     public Timestamp getTimestamp() {
         return timestamp;
     }

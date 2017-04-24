@@ -18,4 +18,7 @@ oasisApp.controller('homeController', ['$scope', '$state',  'loginService', func
     $scope.submitWaterSourceReport = function() {
         $state.transitionTo('create-source-report');
     }
+    $scope.submitWaterQualityReport = function() {
+        $state.transitionTo('create-quality-report');
+    }
 }]);

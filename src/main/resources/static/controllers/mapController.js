@@ -14,33 +14,6 @@ oasisApp.controller('mapController', ['$scope', '$state', 'loginService', 'water
 	 	// initialize the map on the "map" div with a given center and zoom
 	 	var map = L.map('map').fitWorld().addLayer(osm);
 
-        function onLocationError(e) {
-            alert(e.message);
-        }
-
-	 	// Script for adding marker on map click
-	 	/*
-	 	function onMapClick(e) {
-	 	    var marker = L.marker(e.latlng, {
-	 	        draggable: true,
-	 	        title: "Resource location",
-	 	        alt: "Resource Location",
-	 	        riseOnHover: true
-	 	    }).addTo(map)
-	 	        .bindPopup(e.latlng.toString()).openPopup();
-
-	 	    // Update marker on changing it's position
-	 	    marker.on("dragend", function (ev) {
-
-	 	        //var chagedPos = ev.target.getLatLng();
-	 	        //this.bindPopup(chagedPos.toString()).openPopup();
-
-	 	    });
-	 	}
-	 	*/
-	 	map.locate({setView: true, maxZoom: 16});
-	    map.on('locationerror', onLocationError);
-
 	 	waterReportService.getWaterSources().then(function(reports) {
         	        reports.forEach(function (report) {
                         var latlng = L.latLng(report.latitude, report.longitude);
@@ -54,8 +27,28 @@ oasisApp.controller('mapController', ['$scope', '$state', 'loginService', 'water
         	        });
         });
 
+        waterReportService.getWaterQualities().then(function(reports) {
+
+                    reports.forEach(function (report) {
+                        var latlng = L.latLng(report.latitude, report.longitude);
+                        var marker = L.marker(latlng, {
+                            title: report.waterType,
+                            riseOnHover: true
+                        })
+                        marker.report = report;
+                        marker.addTo(map).bindPopup(waterReportService.qualityToString(report));
+                    });
+        });
+
         $scope.back = function() {
             $state.transitionTo("home");
         }
+        function onLocationError(e) {
+            alert(e.message);
+        }
+
+        map.locate({setView: true, maxZoom: 16});
+        map.on('locationerror', onLocationError);
+
 	 	//map.on('click', onMapClick);
 }]);
