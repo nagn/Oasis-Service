@@ -1,5 +1,7 @@
 oasisApp.controller('mapController', ['$scope', '$state', 'loginService', 'waterReportService', function($scope, $state, loginService, waterReportService) {
-
+    if (!loginService.isLoggedIn()) {
+        $state.transitionTo('welcome');
+    }
 	    // We’ll add a tile layer to add to our map, in this case it’s a OSM tile layer.
 	 	// Creating a tile layer usually involves setting the URL template for the tile images
 	 	var osmUrl = 'http://{s}.tile.osm.org/{z}/{x}/{y}.png',

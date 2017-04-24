@@ -33,6 +33,11 @@ oasisApp.config(function($stateProvider, $urlRouterProvider) {
             url: '/map',
             templateUrl: 'views/map-view.html',
             controller: 'mapController'
+        })
+        .state('create-source-report', {
+            url: '/create-source-report',
+            templateUrl: 'views/create-source-report-view.html',
+            controller: 'createSourceReportController'
         });
 
 });

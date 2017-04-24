@@ -15,4 +15,7 @@ oasisApp.controller('homeController', ['$scope', '$state',  'loginService', func
     $scope.viewWaterSources = function () {
         $state.transitionTo('map');
     }
+    $scope.submitWaterSourceReport = function() {
+        $state.transitionTo('create-source-report');
+    }
 }]);
