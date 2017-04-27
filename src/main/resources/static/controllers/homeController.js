@@ -24,9 +24,12 @@ oasisApp.controller('homeController', ['$scope', '$state',  'loginService', func
     $scope.viewSecurityLog = function() {
         $state.transitionTo('security-log');
     }
+    $scope.unblockUser = function() {
+        $state.transitionTo('unblock-user');
+    }
     $scope.canViewWaterSources = loginService.canViewWaterSources;
     $scope.canSubmitWaterSources = loginService.canSubmitWaterSources;
     $scope.canSubmitWaterQuality = loginService.canSubmitQuality;
     $scope.canViewSecurityLog = loginService.canViewSecurityLog;
-
+    $scope.canBlockUser = loginService.canBlockUser;
 }]);

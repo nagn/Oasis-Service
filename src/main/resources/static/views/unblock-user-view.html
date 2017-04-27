@@ -1,0 +1,8 @@
+<h1>Unblock a user</h1>
+<div uib-alert ng-repeat="alert in alerts" ng-class="'alert-' + (alert.type || 'warning')" close="closeAlert($index)" dismiss-on-timeout=4000>{{alert.msg}}</div>
+<form ng-submit="formSubmit()" class="form">
+    <div class="form-group">
+        <input placeholder="ID of User" ng-model="userID" required=""/>
+    </div>
+    <button type="submit" class="btn btn-primary form-group" ng-click="unblockUser()">Unblock</button>
+</form>

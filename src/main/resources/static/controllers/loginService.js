@@ -66,6 +66,12 @@ oasisApp.factory('loginService', ['$state', '$http',
             if (user.userType == "Administrator") return true;
             return false;
         }
+        service.canBlockUser = function () {
+            if (!user) return false;
+            if (user.userType == "Administrator") return true;
+            return false;
+        }
+
 
         service.setUserID = function (newUserID) {
             userID = newUserID;

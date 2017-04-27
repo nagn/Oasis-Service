@@ -48,6 +48,12 @@ oasisApp.config(function($stateProvider, $urlRouterProvider) {
             url: '/security-log',
             templateUrl: 'views/security-logs-view.html',
             controller: 'logController'
+        })
+        .state('unblock-user', {
+            url: '/unblock-user',
+            templateUrl: 'views/unblock-user-view.html',
+            controller: 'unblockController'
         });
+
 
 });

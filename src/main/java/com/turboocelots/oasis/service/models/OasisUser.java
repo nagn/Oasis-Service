@@ -35,6 +35,7 @@ public class OasisUser {
         this.password = password;
         this.userType = userType;
         this.blockCount = 0;
+        this.isBanned = false;
     }
 
     @Override

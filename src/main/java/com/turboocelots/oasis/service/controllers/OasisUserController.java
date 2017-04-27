@@ -31,6 +31,15 @@ public class OasisUserController {
         return "Success!";
     }
 
+    @RequestMapping(value="/api/block/{userId}", method = RequestMethod.GET)
+    OasisUser clearBlock (@PathVariable Long userId) {
+        this.validateUserID(userId);
+        OasisUser user = this.userRepository.findById(userId).get();
+        user.setBlockCount(0);
+        this.userRepository.save(user);
+        return user;
+    }
+
     @RequestMapping(value="/api/user/create", method = RequestMethod.POST)
     OasisUser createUser (@RequestBody OasisUser input) {
         this.checkIfNewUserName(input.getUserName());
