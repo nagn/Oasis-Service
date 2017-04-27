@@ -49,6 +49,4 @@ oasisApp.controller('mapController', ['$scope', '$state', 'loginService', 'water
 
         map.locate({setView: true, maxZoom: 16});
         map.on('locationerror', onLocationError);
-
-	 	//map.on('click', onMapClick);
 }]);

@@ -43,6 +43,11 @@ oasisApp.config(function($stateProvider, $urlRouterProvider) {
             url: '/create-purity-report',
             templateUrl: 'views/create-quality-report-view.html',
             controller: 'createQualityReportController'
+        })
+        .state('security-log', {
+            url: '/security-log',
+            templateUrl: 'views/security-logs-view.html',
+            controller: 'logController'
         });
 
 });

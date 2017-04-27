@@ -6,6 +6,7 @@ oasisApp.controller('registerController', ['$scope', '$state', 'loginService', f
     $scope.userType = "Reporter";
     $scope.userTypes = ["Reporter", "Worker", "Manager", "Administrator"];
     $scope.formSubmit = function() {
+        console.log($scope.userType);
         loginService.attemptRegister($scope.username, $scope.password, $scope.userType).then(function(success) {
             $state.transitionTo('home');
         },
@@ -18,6 +19,7 @@ oasisApp.controller('registerController', ['$scope', '$state', 'loginService', f
         $scope.alerts.splice(index, 1);
     };
     $scope.setUserType = function(newUserType) {
+        console.log(newUserType);
         $scope.userType = newUserType;
     }
     $scope.cancel = function() {

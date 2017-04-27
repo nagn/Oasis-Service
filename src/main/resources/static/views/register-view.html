@@ -15,9 +15,7 @@
             <div class="form-group">
                 <label class="control-label">User Type:</label>
                 <div class="ui-select">
-                    <select id="user_type" class="form-control">
-                        <option value={{type}} ng-repeat="type in userTypes"><a ng-click="setUserType(type)">{{type}}</a></option>
-                    </select>
+                    <select ng-options="type for type in userTypes" ng-model="userType"></select>
                 </div>
             </div>
             <div class ="col-md-offset-4">

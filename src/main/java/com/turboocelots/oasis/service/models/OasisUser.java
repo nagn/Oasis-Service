@@ -23,6 +23,8 @@ public class OasisUser {
     private String homeAddress;
     private String title;
     private String phoneNumber;
+    private boolean isBanned;
+    private long blockCount;
 
     protected OasisUser() {}
 
@@ -32,6 +34,7 @@ public class OasisUser {
         this.userName = userName;
         this.password = password;
         this.userType = userType;
+        this.blockCount = 0;
     }
 
     @Override
@@ -40,6 +43,14 @@ public class OasisUser {
                 "OasisUser[id=%d, userName='%s', password='%s', userType='%s]",
                 id, userName, password, userType);
     }
+
+    public Boolean isBanned() {return isBanned;}
+
+    public void setBanned(Boolean ban) {isBanned = ban;}
+
+    public long getBlockCount () { return blockCount;}
+
+    public void setBlockCount (long newCount) { blockCount = newCount;}
 
     public Long getId() {
         return id;

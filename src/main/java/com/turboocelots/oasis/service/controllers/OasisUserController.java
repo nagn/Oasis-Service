@@ -14,10 +14,12 @@ import java.util.*;
 @RestController
 public class OasisUserController {
     private final OasisUserRepository userRepository;
+    private final SecurityLogRepository logRepository;
 
     @Autowired
-    OasisUserController(OasisUserRepository userRepository) {
+    OasisUserController(OasisUserRepository userRepository, SecurityLogRepository logRepository) {
         this.userRepository = userRepository;
+        this.logRepository = logRepository;
     }
 
     @RequestMapping(value= "/api/user/{userId}", method = RequestMethod.DELETE)
@@ -41,10 +43,15 @@ public class OasisUserController {
     @RequestMapping(value= "/api/user/login", method = RequestMethod.POST)
     OasisUser loginUser (@RequestBody Map<String, String> payload) {
         if (!payload.containsKey("userName") || !payload.containsKey("password")) {
+            SecurityLog newLog = new SecurityLog("User ID: null did not specify username or password.");
+            logRepository.save(newLog);
             throw new InvalidLogin();
         }
         validateUsernameAndPassword(payload.get("userName"), payload.get("password"));
         OasisUser user = this.userRepository.findByUserName(payload.get("userName")).get();
+        SecurityLog newLog = new SecurityLog(String.format("User ID: %s successfully logged in.", user.getId()));
+        logRepository.save(newLog);
+        user.setBlockCount(0);
         return user;
     }
 
@@ -86,7 +93,17 @@ public class OasisUserController {
         OasisUser user = this.userRepository
                 .findByUserName(userName)
                 .orElseThrow(() -> new UserNotFoundException(userName));
+
+        if (user.getBlockCount() >= 3) {
+            SecurityLog newLog = new SecurityLog(String.format("User ID: %s Login attempt currently blocked", user.getId()));
+            logRepository.save(newLog);
+            throw new UserBlocked(userName);
+        }
         if (!user.getPassword().equals(password)) {
+            user.setBlockCount(user.getBlockCount() + 1);
+            SecurityLog newLog = new SecurityLog(String.format("User ID: %s Login attempt invalid password", user.getId()));
+            logRepository.save(newLog);
+            this.userRepository.save(user);
             throw new InvalidPassword(password);
         }
     }

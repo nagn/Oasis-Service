@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" />
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.0.3/dist/leaflet.css" />
+    <link href="http://daneden.github.io/animate.css/animate.min.css" rel="stylesheet">
 
     <link rel="stylesheet" href="css/app.css"/>
 
@@ -35,13 +36,14 @@
     <script src="controllers/mapController.js"></script>
     <script src="controllers/createSourceReportController.js"></script>
     <script src="controllers/createQualityReportController.js"></script>
+    <script src="controllers/logController.js"></script>
 
 
 </head>
 <body ng-app="oasisApp">
     <div class="container-fluid">
         <!-- Angular Injection -->
-        <ui-view></ui-view>
+        <ui-view ng-animate="'view'"></ui-view>
     </div>
 </body>
 </html>

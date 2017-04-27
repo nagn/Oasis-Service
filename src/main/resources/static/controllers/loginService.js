@@ -43,6 +43,30 @@ oasisApp.factory('loginService', ['$state', '$http',
             });
         }
 
+        service.canViewWaterSources = function() {
+            if (!user) return false;
+            if (user.userType == "Reporter" || user.userType == "Worker" || user.userType == "Manager") return true;
+            return false;
+        }
+
+        service.canSubmitWaterSources = function() {
+            if (!user) return false;
+            if (user.userType == "Reporter" || user.userType == "Worker" || user.userType == "Manager") return true;
+            return false;
+        }
+
+        service.canSubmitQuality = function () {
+            if (!user) return false;
+            if (user.userType == "Worker" || user.userType == "Manager") return true;
+            return false;
+        }
+
+        service.canViewSecurityLog = function () {
+            if (!user) return false;
+            if (user.userType == "Administrator") return true;
+            return false;
+        }
+
         service.setUserID = function (newUserID) {
             userID = newUserID;
         }

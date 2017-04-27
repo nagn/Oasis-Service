@@ -21,4 +21,12 @@ oasisApp.controller('homeController', ['$scope', '$state',  'loginService', func
     $scope.submitWaterQualityReport = function() {
         $state.transitionTo('create-quality-report');
     }
+    $scope.viewSecurityLog = function() {
+        $state.transitionTo('security-log');
+    }
+    $scope.canViewWaterSources = loginService.canViewWaterSources;
+    $scope.canSubmitWaterSources = loginService.canSubmitWaterSources;
+    $scope.canSubmitWaterQuality = loginService.canSubmitQuality;
+    $scope.canViewSecurityLog = loginService.canViewSecurityLog;
+
 }]);
